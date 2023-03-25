@@ -1,0 +1,16 @@
+{
+  "name": "smg-coding-challenge",
+  "version": "1.0.0",
+  "description": "A simple Restful API (GET) build with Node.js, Serverless Framework and AWS Lambda",
+  "scripts": {
+    "start": "nodemon --exec serverless offline start",
+    "deploy": "serverless deploy",
+    "test": "jest"
+  },
+  "author": "Tue An",
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "serverless": "^3.29.0",
+    "serverless-offline": "^12.0.4"
+  }
+}
