@@ -7,8 +7,10 @@ provider:
 
 functions:
   api:
-    handler: index.handler
+    handler: src/handlers/index.handler
     events:
       - httpApi:
-          path: /
+          path: /random-cocktail
           method: get
+plugins:
+  - serverless-offline
