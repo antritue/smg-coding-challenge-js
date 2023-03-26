@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { translate } = require("../utils/translate");
 
 module.exports.handler = async (event) => {
   const language = event.queryStringParameters?.language || "en";
@@ -30,7 +31,7 @@ module.exports.handler = async (event) => {
     const responseValue = {
       language,
       title: drink.strDrink,
-      instructions: '',
+      instructions: translate(drink, language),
       image: drink.strDrinkThumb,
       ingredients,
     }

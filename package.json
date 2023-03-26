@@ -9,6 +9,7 @@
   },
   "author": "Tue An",
   "devDependencies": {
+    "jest": "^29.5.0",
     "nodemon": "^2.0.22",
     "serverless": "^3.29.0",
     "serverless-offline": "^12.0.4"
