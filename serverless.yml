@@ -4,6 +4,10 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs18.x
+  stage: dev
+  region: ap-southeast-1
+  environment:
+    API_ENDPOINT: https://www.thecocktaildb.com/api/json/v1/1/random.php
 
 functions:
   api:

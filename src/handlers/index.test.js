@@ -9,6 +9,8 @@ describe('handler', () => {
         jest.resetAllMocks();
     });
 
+    const endpoint = process.env.API_ENDPOINT;
+
     const drink = {
         strDrink: 'Sidecar Cocktail',
         strInstructions: 'Shake all ingredients with ice, strain into a cocktail glass, and serve.',
@@ -38,7 +40,7 @@ describe('handler', () => {
 
         const event = {};
         const response = await app.handler(event);
-        expect(axios.get).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+        expect(axios.get).toHaveBeenCalledWith(endpoint);
         expect(response.statusCode).toEqual(200);
 
         const responseData = JSON.parse(response.body).data;
@@ -54,7 +56,7 @@ describe('handler', () => {
 
         const event = { queryStringParameters: { language: 'de' } };
         const response = await app.handler(event);
-        expect(axios.get).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+        expect(axios.get).toHaveBeenCalledWith(endpoint);
         expect(response.statusCode).toEqual(200);
 
         const responseData = JSON.parse(response.body).data;
@@ -80,7 +82,7 @@ describe('handler', () => {
 
         const event = {};
         const response = await app.handler(event);
-        expect(axios.get).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+        expect(axios.get).toHaveBeenCalledWith(endpoint);
         expect(response.statusCode).toEqual(500);
 
         const responseBody = JSON.parse(response.body);

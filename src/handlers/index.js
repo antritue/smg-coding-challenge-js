@@ -14,11 +14,9 @@ module.exports.handler = async (event) => {
     };
   }
 
-  const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-
   try {
     //get a random drink from the cocktail api
-    const response = await axios.get(url);
+    const response = await axios.get(process.env.API_ENDPOINT);
     const drink = response.data.drinks[0];
 
     const responseValue = {
