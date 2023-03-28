@@ -12,10 +12,9 @@ Returns a random cocktail recipe.
 
 #### Request Parameters
 
-
-| Parameter | Type   | Required | Default | Description                                                              |
-| ----------- | -------- | ---------- | --------- | -------------------------------------------------------------------------- |
-| language  | String | No       | en      | The language code must be one of [en, es, de, fr, it, zh-hans, zh-hant]. |
+| Parameter | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| language | String | No | en | The language code must be one of [en, es, de, fr, it, zh-hans, zh-hant]. |
 
 #### Response
 
@@ -115,7 +114,7 @@ To run tests, open another terminal, run the following command
 
 ## Deployment
 
-To deploy this project you need to setup aws credentials (`aws_access_key_id` and `aws_secret_access_key`). Use [this link](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) as reference
+To deploy this project you need to setup aws credentials (`aws_access_key_id` and `aws_secret_access_key`). Use [this guide](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) as reference
 
 Choose your `region` in `serverless.yml`
 
