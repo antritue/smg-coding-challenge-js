@@ -41,7 +41,6 @@ module.exports.handler = async (event) => {
       statusCode: 500,
       body: JSON.stringify(
         {
-          message: "Internal server error",
           error: error.message,
         }
       ),

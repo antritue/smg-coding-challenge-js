@@ -86,7 +86,6 @@ describe('handler', () => {
         expect(response.statusCode).toEqual(500);
 
         const responseBody = JSON.parse(response.body);
-        expect(responseBody.message).toEqual('Internal server error');
         expect(responseBody.error).toEqual('API request failed');
     });
 });

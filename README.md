@@ -1,92 +1,144 @@
-<!--
-title: 'AWS Simple HTTP Endpoint example in NodeJS'
-description: 'This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.'
-layout: Doc
-framework: v3
-platform: AWS
-language: nodeJS
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+# SMG technical test
 
-# Serverless Framework Node HTTP API on AWS
+## Overview
 
-This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
+This is a serverless application that retrieves a random cocktail recipe and returns the details in a JSON response. The application is built using Node.js, AWS Lambda, API Gateway, and the Serverless Framework.
 
-This template does not include any kind of persistence (database). For more advanced examples, check out the [serverless/examples repository](https://github.com/serverless/examples/) which includes Typescript, Mongo, DynamoDB and other examples.
+## API Reference
 
-## Usage
+### GET /random-cocktail
 
-### Deployment
+Returns a random cocktail recipe.
 
-```
-$ serverless deploy
-```
+#### Request Parameters
 
-After deploying, you should see output similar to:
 
-```bash
-Deploying aws-node-http-api-project to stage dev (us-east-1)
+| Parameter | Type   | Required | Default | Description                                                              |
+| ----------- | -------- | ---------- | --------- | -------------------------------------------------------------------------- |
+| language  | String | No       | en      | The language code must be one of [en, es, de, fr, it, zh-hans, zh-hant]. |
 
-✔ Service deployed to stack aws-node-http-api-project-dev (152s)
+#### Response
 
-endpoint: GET - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/
-functions:
-  hello: aws-node-http-api-project-dev-hello (1.9 kB)
-```
+**Success Response (200 OK)**
 
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [http event docs](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/).
-
-### Invocation
-
-After successful deployment, you can call the created application via HTTP:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
-```
-
-Which should result in response similar to the following (removed `input` content for brevity):
+Returns a JSON object with the following properties:
 
 ```json
 {
-  "message": "Go Serverless v2.0! Your function executed successfully!",
-  "input": {
-    ...
-  }
+	"message": "Successfully retrieved drink",
+	"data": {
+		"language": "en",
+		"title": "Kentucky Colonel",
+		"instructions": "In a shaker half-filled with ice cubes combine the courbon and Benedictine. Shake and strain into a cocktail glass. Garnish with the lemon twist.",
+		"image": "https://www.thecocktaildb.com/images/media/drink/utqwpu1478820348.jpg",
+		"ingredients": [
+			{
+				"name": "Bourbon",
+				"measure": "3 oz ",
+				"image": "https://www.thecocktaildb.com/images/ingredients/bourbon.png"
+			},
+			{
+				"name": "Benedictine",
+				"measure": "1/2 oz ",
+				"image": "https://www.thecocktaildb.com/images/ingredients/benedictine.png"
+			},
+			{
+				"name": "Lemon peel",
+				"measure": "1 twist of ",
+				"image": "https://www.thecocktaildb.com/images/ingredients/lemon%20peel.png"
+			}
+		]
+	}
 }
-```
-
-### Local development
-
-You can invoke your function locally by using the following command:
-
-```bash
-serverless invoke local --function hello
-```
-
-Which should result in response similar to the following:
 
 ```
+
+**Client Error (400 Bad Request)**
+
+If the language parameter is invalid or not one of the allowed values, the API will return a 400 Bad Request response with an error message in the body.
+
+```json
 {
-  "statusCode": 200,
-  "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
+	"error": "\"value\" must be one of [en, es, de, fr, it, zh-hans, zh-hant]"
 }
 ```
 
+**Server Error (500 Internal Server Error)**
 
-Alternatively, it is also possible to emulate API Gateway and Lambda locally by using `serverless-offline` plugin. In order to do that, execute the following command:
+If there is an internal server error while processing the request, the API will return a 500 Internal Server Error response with an error message in the body.
+
+```json
+{
+	"error": "Something went wrong while processing your request."
+}
+```
+
+## Local Development
+
+Clone the project
 
 ```bash
-serverless plugin install -n serverless-offline
+  git@github.com:antritue/smg-coding-challenge-js.git
 ```
 
-It will add the `serverless-offline` plugin to `devDependencies` in `package.json` file as well as will add it to `plugins` in `serverless.yml`.
+Go to the project directory
 
-After installation, you can start local emulation with:
-
-```
-serverless offline
+```bash
+  cd smg-coding-challenge-js
 ```
 
-To learn more about the capabilities of `serverless-offline`, please refer to its [GitHub repository](https://github.com/dherault/serverless-offline).
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the local server
+
+```bash
+  npm start
+```
+
+Make a request to the local API:
+
+```bash
+  curl http://localhost:3000/random-cocktail
+```
+
+## Running Tests
+
+To run tests, open another terminal, run the following command
+
+```bash
+  npm run test
+```
+
+## Deployment
+
+To deploy this project you need to setup aws credentials (`aws_access_key_id` and `aws_secret_access_key`). Use [this link](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) as reference
+
+Choose your `region` in `serverless.yml`
+
+```bash
+  provider:
+    name: aws
+    runtime: nodejs18.x
+    stage: dev
+    region: ap-southeast-1
+```
+
+Run this command
+
+```bash
+  npm run deploy
+```
+
+Application is avalable to test via this API endpoint: https://j4q650kt17.execute-api.ap-southeast-1.amazonaws.com/random-cocktail
+
+## Reference
+
+- [AWS Lambda Functions with Serverless Framework](https://www.serverless.com/framework/docs/providers/aws/guide/functionshttps:/)
+- [Cocktail public API](https://www.thecocktaildb.com/api.phphttps://https://www.thecocktaildb.com/api.ph)
+- [ASCII table](https://www.rapidtables.com/code/text/ascii-table.htmlhttps:/)
+- [Jest](https://jestjs.io/docs/getting-startedhttps:/) for testing
+- [Joi](https://joi.dev/api/?v=17.8.3) for validation

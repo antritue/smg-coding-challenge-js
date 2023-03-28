@@ -7,6 +7,7 @@ module.exports.translate = (drink, language) => {
     else {
         const field = `strInstructions${language.toUpperCase()}`;
         const instructions = drink[field];
+        
         if (instructions) {
             return instructions;
         } else {

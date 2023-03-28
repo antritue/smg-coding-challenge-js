@@ -8,7 +8,7 @@ module.exports.getIngredients = (drink) => {
         }
         const ingredientMeasure = drink[`strMeasure${i}`];
         //replace white space between name of ingredient with %20
-        const ingredientNameParameter = encodeURIComponent(ingredientName.trim().toLowerCase())
+        const ingredientNameParameter = encodeURIComponent(ingredientName.toLowerCase())
 
         ingredients.push({
             name: ingredientName,
