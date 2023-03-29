@@ -1,5 +1,5 @@
 const axios = require('axios');
-const app = require('./index');
+const { handler } = require('./index');
 const { translate } = require('../utils/translate');
 
 jest.mock('axios');
@@ -24,14 +24,14 @@ describe('handler', () => {
 
     const expectedIngredients = [
         {
-            name: 'Brandy', 
-            measure: '1 oz ', 
+            name: 'Brandy',
+            measure: '1 oz ',
             image: 'https://www.thecocktaildb.com/images/ingredients/brandy.png',
-        }, 
-        { 
-            name: 'Triple sec', 
-            measure: '1\/2 oz ', 
-            image: 'https://www.thecocktaildb.com/images/ingredients/triple%20sec.png', 
+        },
+        {
+            name: 'Triple sec',
+            measure: '1\/2 oz ',
+            image: 'https://www.thecocktaildb.com/images/ingredients/triple%20sec.png',
         },
     ];
 
@@ -39,7 +39,7 @@ describe('handler', () => {
         axios.get.mockResolvedValue({ data: { drinks: [drink] } });
 
         const event = {};
-        const response = await app.handler(event);
+        const response = await handler(event);
         expect(axios.get).toHaveBeenCalledWith(endpoint);
         expect(response.statusCode).toEqual(200);
 
@@ -55,7 +55,7 @@ describe('handler', () => {
         axios.get.mockResolvedValue({ data: { drinks: [drink] } });
 
         const event = { queryStringParameters: { language: 'de' } };
-        const response = await app.handler(event);
+        const response = await handler(event);
         expect(axios.get).toHaveBeenCalledWith(endpoint);
         expect(response.statusCode).toEqual(200);
 
@@ -70,7 +70,7 @@ describe('handler', () => {
     test('returns an error message for an invalid language', async () => {
         const event = { queryStringParameters: { language: 'invalid' } };
 
-        const response = await app.handler(event);
+        const response = await handler(event);
         expect(response.statusCode).toEqual(400);
 
         const responseBody = JSON.parse(response.body);
@@ -81,7 +81,7 @@ describe('handler', () => {
         axios.get.mockRejectedValue(new Error('API request failed'));
 
         const event = {};
-        const response = await app.handler(event);
+        const response = await handler(event);
         expect(axios.get).toHaveBeenCalledWith(endpoint);
         expect(response.statusCode).toEqual(500);
 
