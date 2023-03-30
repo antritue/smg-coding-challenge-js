@@ -1,7 +1,7 @@
 const { generateRandomString } = require("../generateRandomString");
 
 module.exports.translate = (drink, language) => {
-    if (language === 'en') {
+    if (language.toLowerCase() === 'en') {
         return drink.strInstructions
     }
     else {
