@@ -19,6 +19,7 @@ describe("translate function", () => {
 
   test("returns random words for unsupported languages", () => {
     const result = translate(drink, "fr");
+    expect(result).toBeDefined();
     expect(result).not.toBe(drink.strInstructions);
   });
 });
