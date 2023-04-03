@@ -13,7 +13,6 @@ module.exports.getIngredients = (drink) => {
             measure: ingredientMeasure,
             image: `https://www.thecocktaildb.com/images/ingredients/${ingredientNameParameter}.png`,
         })
-        console.log(i);
         i++
     }
     return ingredients
