@@ -1,11 +1,11 @@
 const { validateLanguage } = require('./index');
 
 describe('validateLanguage', () => {
-  const validLanguage = 'en';
   const invalidLanguage = 'invalid';
 
-  test('should not throw an error for valid language', () => {
-    const param = validLanguage;
+  const languages = ['en', 'es', 'de', 'fr', 'it', 'zh-hans', 'zh-hant'];
+
+  test.each(languages)('should not throw an error for valid language: %s', (param) => {
     const result = validateLanguage(param);
     expect(result.error).not.toBeDefined();
   });
