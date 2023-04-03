@@ -132,8 +132,6 @@ Run this command
   npm run deploy
 ```
 
-Application is avalable to test via this API endpoint: https://j4q650kt17.execute-api.ap-southeast-1.amazonaws.com/random-cocktail
-
 ## Reference
 
 - [AWS Lambda Functions with Serverless Framework](https://www.serverless.com/framework/docs/providers/aws/guide/functionshttps:/)
